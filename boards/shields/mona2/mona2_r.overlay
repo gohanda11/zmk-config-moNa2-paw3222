@@ -2,6 +2,13 @@
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
+/ {
+    // カスタム入力プロセッサー: 閾値付き一時レイヤー
+    zip_threshold_temp_layer: input_processor_threshold_temp_layer {
+        compatible = "zmk,input-processor-threshold-temp-layer";
+        #input-processor-cells = <3>;
+    };
+};
 
 &default_transform {
     col-offset = <6>;
@@ -62,10 +69,10 @@
     status = "okay";
     device = <&trackball_central>;
 
-    // 時計回りに90度回転（XY入れ替え + X軸反転）+ オートマウスレイヤー
+    // 時計回りに90度回転（XY入れ替え + X軸反転）+ オートマウスレイヤー（閾値付き）
     input-processors = <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
                        <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
-                       <&zip_temp_layer 1 500>;  //オートマウスレイヤー（レイヤー1に500ms切り替え）
+                       <&zip_threshold_temp_layer 1 500 20>;  //オートマウスレイヤー（20ピクセル移動後、レイヤー1に500ms切り替え）
 
     scroller {
         layers = <6>;
