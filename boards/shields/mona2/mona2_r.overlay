@@ -3,25 +3,6 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 / {
-    aliases {
-        led-red = &led_red;
-        led-green = &led_green;
-        led-blue = &led_blue;
-    };
-
-    leds {
-        compatible = "gpio-leds";
-        led_red: led_red {
-            gpios = <&gpio0 26 GPIO_ACTIVE_LOW>;
-        };
-        led_green: led_green {
-            gpios = <&gpio0 30 GPIO_ACTIVE_LOW>;
-        };
-        led_blue: led_blue {
-            gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
-        };
-    };
-
     // カスタム入力プロセッサー: 閾値付き一時レイヤー
     zip_threshold_temp_layer: input_processor_threshold_temp_layer {
         compatible = "zmk,input-processor-threshold-temp-layer";
